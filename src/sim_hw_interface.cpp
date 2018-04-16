@@ -68,6 +68,13 @@ void SimHWInterface::init()
   // Resize vectors
   joint_position_prev_.resize(num_joints_, 0.0);
 
+  // Initialize at reasonable position
+  for (std::size_t joint_id = 0; joint_id < num_joints_; ++joint_id)
+  {
+    joint_position_[joint_id] = (joint_position_lower_limits_[joint_id] + joint_position_upper_limits_[joint_id]) / 2.0;
+    joint_position_prev_[joint_id] = joint_position_[joint_id];
+  }
+
   ROS_INFO_NAMED(name_, "SimHWInterface Ready.");
 }
 
